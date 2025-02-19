@@ -1,0 +1,6 @@
+.env
+*.env
+.terraform*
+tfplan
+.terragrunt-cache
+
