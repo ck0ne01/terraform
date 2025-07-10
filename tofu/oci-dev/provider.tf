@@ -2,17 +2,19 @@ terraform {
   required_providers {
     oci = {
       source  = "oracle/oci"
-      version = "6.26.0"
+      version = ">= 6.26.0"
     }
   }
-  required_version = ">= 1.10.5"
-
   cloud {
+
     organization = "ck0ne"
+    hostname     = "app.terraform.io"
+
     workspaces {
-      name = "oracle-k3s"
+      name = "oci_prod"
     }
   }
+  required_version = ">= 1.10.1"
 }
 
 provider "oci" {

@@ -1,31 +1,27 @@
 variable "root_compartment_id" {
-  type    = string
-  default = "ocid1.tenancy.oc1..aaaaaaaabrdgmvt2eupbxwpiyznezqfreah3jrwedwdbrm7pndk63djrevia"
+  type = string
 }
 
 variable "compartment_description" {
   type    = string
-  default = "K3s Kubernetes Cluster"
+  default = "Prod Environment"
 }
 
 variable "compartment_name" {
   type    = string
-  default = "k3s_cluster"
+  default = "prod_env"
 }
 
 variable "user_ocid" {
-  type    = string
-  default = "ocid1.user.oc1..aaaaaaaa5342v3y4h223poyqrpqgmnr2bj73d2aaa3sq6ho5jmr6rhahkjqa"
+  type = string
 }
 
 variable "fingerprint" {
-  type    = string
-  default = "d0:30:a5:f5:2a:37:bf:a2:66:0e:e7:28:a3:d2:4d:32"
+  type = string
 }
 
 variable "tenancy_ocid" {
-  type    = string
-  default = "ocid1.tenancy.oc1..aaaaaaaabrdgmvt2eupbxwpiyznezqfreah3jrwedwdbrm7pndk63djrevia"
+  type = string
 }
 
 variable "region" {
@@ -49,7 +45,7 @@ variable "instance_shape" {
 
 variable "instance_display_name" {
   type    = string
-  default = "k3s_node"
+  default = "coolify"
 }
 
 variable "assign_public_ip" {
@@ -59,10 +55,19 @@ variable "assign_public_ip" {
 
 variable "instance_cpu" {
   type    = number
-  default = 2
+  default = 4
 }
 
 variable "instance_memoty" {
   type    = number
-  default = 12
+  default = 24
+}
+
+variable "ssh_public_key" {
+  type = string
+}
+
+variable "network_cidr_block" {
+  type    = string
+  default = "10.0.0.0/24"
 }
