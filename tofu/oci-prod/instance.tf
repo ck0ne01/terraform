@@ -18,8 +18,9 @@ resource "oci_core_instance" "core_instance" {
   }
 
   source_details {
-    source_id   = local.core_image_id
-    source_type = "image"
+    source_id               = local.core_image_id
+    source_type             = "image"
+    boot_volume_size_in_gbs = 200 / var.instance_count # 200 GB in always free tier
   }
 
   metadata             = tomap({ "ssh_authorized_keys" = var.ssh_public_key })

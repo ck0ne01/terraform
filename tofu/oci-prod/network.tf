@@ -1,3 +1,7 @@
+data "http" "myip" {
+  url = "http://ipv4.icanhazip.com"
+}
+
 resource "oci_core_vcn" "vcn" {
   compartment_id = oci_identity_compartment.compartment.id
 
@@ -13,19 +17,10 @@ resource "oci_core_security_list" "security_list" {
 
   ingress_security_rules {
     protocol = "6"
-    source   = "0.0.0.0/0"
+    source   = "${chomp(data.http.myip.response_body)}/32"
     tcp_options {
       max = 22
       min = 22
-    }
-  }
-
-  ingress_security_rules {
-    protocol = "6"
-    source   = "0.0.0.0/0"
-    tcp_options {
-      max = 8000
-      min = 8000
     }
   }
 
@@ -83,7 +78,7 @@ resource "oci_core_security_list" "security_list" {
   }
 
   ingress_security_rules {
-    protocol = "6"
+    protocol = "all"
     source   = var.network_cidr_block
   }
 
