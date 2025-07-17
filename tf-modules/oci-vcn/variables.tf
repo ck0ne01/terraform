@@ -55,7 +55,7 @@ variable "instance_cpu" {
   default = 4
 }
 
-variable "instance_memoty" {
+variable "instance_memory" {
   type    = number
   default = 24
 }

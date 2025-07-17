@@ -6,8 +6,8 @@ resource "oci_core_instance" "core_instance" {
   display_name        = var.instance_display_name == "" ? "" : var.instance_count != 1 ? "${var.instance_display_name}-${count.index + 1}" : var.instance_display_name
   shape               = var.instance_shape
   shape_config {
-    memory_in_gbs = var.instance_memoty
-    ocpus         = var.instance_cpu
+    memory_in_gbs = floor(var.instance_memory / var.instance_count)
+    ocpus         = floor(var.instance_cpu / var.instance_count)
   }
 
   create_vnic_details {
