@@ -15,7 +15,7 @@ inputs = {
   instance_display_name   = "k3s"
   compartment_name        = "k3s"
   compartment_description = "k3s environment"
-  instance_count          = 3
+  instance_count          = 2
 
   root_compartment_id = "ocid1.tenancy.oc1..aaaaaaaabrdgmvt2eupbxwpiyznezqfreah3jrwedwdbrm7pndk63djrevia"
   user_ocid = "ocid1.user.oc1..aaaaaaaa5342v3y4h223poyqrpqgmnr2bj73d2aaa3sq6ho5jmr6rhahkjqa"
