@@ -14,18 +14,12 @@ resource "oci_core_network_security_group_security_rule" "load_balancer_security
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  destination = var.network_cidr_block
-
   source      = "0.0.0.0/0"
   source_type = "CIDR_BLOCK"
   # stateless   = var.network_security_group_security_rule_stateless
   tcp_options {
 
     destination_port_range {
-      max = 6443
-      min = 6443
-    }
-    source_port_range {
       max = 6443
       min = 6443
     }
@@ -61,12 +55,30 @@ resource "oci_load_balancer_backend_set" "this" {
 }
 
 resource "oci_load_balancer_backend" "api_server" {
+  count = var.instance_count == 1 ? 0 : 1
+
+  backendset_name  = oci_load_balancer_backend_set.this[0].name
+  ip_address       = oci_core_instance.core_instance[0].private_ip
+  load_balancer_id = oci_load_balancer_load_balancer.this[0].id
+  port             = 6443
+}
+
+resource "oci_load_balancer_backend" "https" {
   for_each = var.instance_count == 1 ? {} : local.instance_backends
 
   backendset_name  = oci_load_balancer_backend_set.this[0].name
   ip_address       = each.value
   load_balancer_id = oci_load_balancer_load_balancer.this[0].id
-  port             = 6443
+  port             = 443
+}
+
+resource "oci_load_balancer_backend" "http" {
+  for_each = var.instance_count == 1 ? {} : local.instance_backends
+
+  backendset_name  = oci_load_balancer_backend_set.this[0].name
+  ip_address       = each.value
+  load_balancer_id = oci_load_balancer_load_balancer.this[0].id
+  port             = 80
 }
 
 resource "oci_load_balancer_listener" "test_listener" {
